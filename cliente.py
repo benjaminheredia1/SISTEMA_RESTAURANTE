@@ -1,15 +1,11 @@
+import persona
 
-class Cliente:
-    def __init__(self, id_cliente: int, nombre: str, telefono: str, correo: str):
-        self.id = id_cliente
-        self.nombre = nombre
-        self.telefono = telefono
+class Cliente(persona):
+    def __init__(self, idcliente: int, nombre: str, cedula: str, telefono: str, correo: str):
+        super().__init__(idcliente,nombre, cedula, telefono)
         self.correo = correo
-        self.visitas = 0
         self.pedidos = []
 
-    def registrar_visita(self):
-        self.visitas += 1
 
     def agregar_pedido(self, pedido):
         self.pedidos.append(pedido)

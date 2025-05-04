@@ -1,78 +1,80 @@
+import os
+def limpiar_pantalla():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-"""
-from cliente import Cliente  # Importa la clase desde cliente.py
-
-# Crear un cliente
-cliente1 = Cliente(1, "Laura Pérez", "45434", "laura@example.com")
-
-# Registrar una visita
-cliente1.registrar_visita()
-
-# Agregar un pedido
-cliente1.agregar_pedido("Pizza Margarita")
-
-# Mostrar información
-
-print("------ CLIENTE REGISTRADO ------ ")
-print(cliente1.nombre)
-print(cliente1.obtener_historial_pedidos())
-"""
-
-def mostrar_menuOpciones():
+def mostrar_menuOpciones(tipousuario):
     print("\n[========= RESTAURANTE ""PORVENIR"" =========]")
-    print("1. Ver menú de comida")
-    print("2. Agregar pedido")
-    print("3. Ver cuenta")
-    print("4. Salir")
+    if tipousuario == "administrador":
+        print("1. registrar empleado")
+        print("4. Salir")
+    elif tipousuario == "empleado":
+        print("1. atender perdido")
+        print("4. Salir")
 
-def ver_menu_comida():
-    print("\n--- MENÚ DE COMIDA ---")
-    for item, precio in menu.items():
-        print(f"{item}: ${precio}")
+# lista de usuarios para acceder al sistema
+usuarios = [
+    {"usuario": "admin", "contrasena": "pass123", "tipo": "administrador"},
+    {"usuario": "carlos", "contrasena": "1234e", "tipo": "empleado"}
+]
 
-def agregar_pedido():
-    ver_menu_comida()
-    pedido = input("¿Qué desea pedir? (escriba el nombre del platillo): ")
-    if pedido in menu:
-        cuenta.append(pedido)
-        print(f"{pedido} agregado a su pedido.")
-    else:
-        print("Ese platillo no está en el menú.")
+# funcion para simular login
+def login(usuario, contrasena):
+    for user in usuarios:
+        if user["usuario"] == usuario and user["contrasena"] == contrasena:
+            limpiar_pantalla()
+            print("Bienvenido/a, " + user['usuario'] +"")
+            # --- Menu de opciones
+ad            while True:
+                mostrar_menuOpciones(user['tipo'])
+                opcion = input("Seleccione una opción (1-4): ")
 
-def ver_cuenta():
-    print("\n--- SU CUENTA ---")
-    total = 0
-    for item in cuenta:
-        print(f"{item}: ${menu[item]}")
-        total += menu[item]
-    print(f"Total a pagar: ${total}")
+                while True:
+                    if user['tipo'] == "administrador":
+                        if opcion == "1":
+                            limpiar_pantalla()
+                            print("Registrar empleado")
+                        elif opcion == "4":
+                            limpiar_pantalla()
+                            print("Gracias por su visita. ¡Hasta luego!")
+                            exit()
+                            break
+                        else:
+                            print("Opción inválida. Intente de nuevo.")
+                            break
+                    elif user['tipo'] == "empleado":
+                        if opcion == "1":
+                            limpiar_pantalla()
+                            print("Atender pedido")
+                        elif opcion == "4":
+                            limpiar_pantalla()
+                            print("Gracias por su visita. ¡Hasta luego!")
+                            exit()
+                            break
+                        else:
+                            print("Opción inválida. Intente de nuevo.")
+                            break
+                        
+                    continuar = input("Escriba 'ok' para volver al menú o cualquier otra tecla para repetir esta opción: ").lower()
+                    if continuar == 'ok':
+                        break
+        else:
+            return True
+    return False
 
-# Datos del restaurante
-menu = {
-    "Hamburguesa": 8.50,
-    "Pizza": 12.00,
-    "Ensalada": 6.00,
-    "Refresco": 2.50,
-    "Café": 3.00
-}
 
-cuenta = []
 
-# --- Menu de opciones
-print("Bienvenido/a!!")
-salirprograma = True;
-while salirprograma:
-    mostrar_menuOpciones()
-    opcion = input("Seleccione una opción (1-4): ")
+# --- inicio del programa
+respuesta = True
 
-    if opcion == "1":
-        ver_menu_comida()
-    elif opcion == "2":
-        agregar_pedido()
-    elif opcion == "3":
-        ver_cuenta()
-    elif opcion == "4":
-        print("Gracias por su visita. ¡Hasta luego!")
-        salirprograma = False
-    else:
-        print("Opción inválida. Intente de nuevo.")
+while  respuesta == True:
+    print("\n|================= BIENVENIDO AL RESTAURANTE ""PORVENIR"" =================|")
+    usuario = input("| Ingrese su nombre de usuario: ")
+    contrasena = input("| Ingrese su contraseña: ")
+
+    respuesta = login(usuario, contrasena)
+    if respuesta == True:
+        print("Usuario o contraseña incorrectos. Intente de nuevo.")
+        continue
+
+
+
